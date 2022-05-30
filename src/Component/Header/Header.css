@@ -8,6 +8,7 @@ header {
   position: fixed;
   width: 100%;
   background-color: rgba(66,227,253,1);
+  z-index: 1;
 }
 
 .title {

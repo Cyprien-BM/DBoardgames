@@ -6,8 +6,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 200ms ease-in-out;
+}
+
+.game-card:hover {
+  transform: scale(1.02);
+  cursor: pointer;
 }
 
 .game-card__img {
@@ -29,8 +36,11 @@
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  color: rgba(66,92,253,1);
+  font-weight: bold;
 }
 
-.game-card__data p{
-  display: block;
+.game-card__data,
+.game-card__title {
+  padding: 0 1rem;
 }

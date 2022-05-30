@@ -11,11 +11,15 @@ export default function Form() {
     if (event.target.classList.contains('search-input')) {
       setResearch(event.target.value);
     }
+    if (!event.target.value) {
+      console.log('ici');
+      setGamesData();
+    }
   };
 
   useEffect(() => {
-    if (research) {
-      axios
+    async function fetchData() {
+      await axios
         .get(
           `https://api.boardgameatlas.com/api/search?name=${research}&client_id=EG3knn8hUY`
         )
@@ -23,9 +27,17 @@ export default function Form() {
           setGamesData(response.data.games);
         })
         .catch((error) => console.log(error));
-    } else {
-      setGamesData();
+
+      if (!research) {
+        setGamesData();
+      }
     }
+    fetchData();
+    // if (research) {
+    //
+    // } else {
+    //   setGamesData();
+    // }
   }, [research]);
 
   console.log(gamesData);
@@ -36,15 +48,17 @@ export default function Form() {
         <form action=''>
           <input
             type='text'
+            className='search-input'
             placeholder="Entrez le nom d'un jeu"
             onInput={dataBinding}
-            className='search-input'
+            onFocus={(e) => (e.target.placeholder = '')}
+            onBlur={(e) => (e.target.placeholder = "Entrez le nom d'un jeu")}
           />
         </form>
       </div>
       <div className='games'>
-        {gamesData && gamesData.map((game) =>
-          <Games key={game.id} game={game} />)}
+        {gamesData &&
+          gamesData.map((game) => <Games key={game.id} game={game} />)}
       </div>
     </div>
   );

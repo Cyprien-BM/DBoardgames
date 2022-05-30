@@ -1,21 +1,33 @@
 import React from 'react';
-import './Games.css'
+import './Games.css';
 
 export default function Games(props) {
-
-  const title = props.game.handle.charAt(0).toUpperCase() + props.game.handle.slice(1).split('-').join(' ');
-
-
+  const title =
+    props.game.handle.charAt(0).toUpperCase() +
+    props.game.handle.slice(1).split('-').join(' ');
 
   return (
     <div className='game-card'>
-        <img src={props.game.images.medium} alt='Photo du jeu' className='game-card__img'/>
-        <h2 className='game-card__title'>{title}</h2>
-        <div className='game-card__data'>
-          <p>{props.game.year_published}</p>
-          <p>{props.game.min_players ? props.game.min_players + ' à ' + props.game.max_players + ' joueurs' : ''}</p>
-          <p>{props.game.min_playtime ? props.game.min_playtime + ' à ' + props.game.max_playtime + ' min' : ''}</p>
-        </div>
+      <img
+        src={props.game.images.medium}
+        alt='Photo du jeu'
+        className='game-card__img'
+      />
+      <h2 className='game-card__title'>{title}</h2>
+      <div className='game-card__data'>
+        <p>{props.game.year_published}</p>
+        <span>-</span>
+        <p>
+          {props.game.min_players ? props.game.min_players : '?'}&nbsp; à &nbsp;
+          {props.game.max_players ? props.game.max_players : '?'} &nbsp;joueurs
+        </p>
+        <span>-</span>
+        <p>
+          {props.game.min_playtime ? props.game.min_playtime : '?'}&nbsp; à
+          &nbsp;{props.game.max_playtime ? props.game.max_playtime : '?'}{' '}
+          &nbsp;min
+        </p>
+      </div>
     </div>
-  )
+  );
 }

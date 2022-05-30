@@ -1,16 +1,12 @@
 button {
   position: relative;
-  background: linear-gradient(
-    15deg,
-    rgba(253, 92, 66, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
   color: #352927;
   box-shadow: 3px 3px 5px rgba(128, 128, 128, 0.5);
   padding: 0.6rem 1rem;
   margin-left: 2rem;
   border-radius: 5px;
   border: none;
+  outline:  2px solid rgba(253, 92, 66, 1);
   font-weight: 600;
   font-size: 1rem;
 }
@@ -21,6 +17,7 @@ button:hover {
   box-shadow: none;
   transition: ease-in-out all;
   cursor: pointer;
+  outline: none
 }
 
 button::before,
