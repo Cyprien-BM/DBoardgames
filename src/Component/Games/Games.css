@@ -1,0 +1,36 @@
+.game-card {
+  background-color: white;
+  width: 360px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.game-card__img {
+  max-height: 350px;
+  max-width: 350px;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.game-card__title {
+  margin: .5rem 0;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.game-card__data {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.game-card__data p{
+  display: block;
+}
