@@ -12,7 +12,6 @@ export default function Form() {
       setResearch(event.target.value);
     }
     if (!event.target.value) {
-      console.log('ici');
       setGamesData();
     }
   };
