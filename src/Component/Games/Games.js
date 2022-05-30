@@ -1,5 +1,7 @@
 import React from 'react';
 import './Games.css';
+import {BsCheckCircle as Checkbox} from 'react-icons/bs'
+import { IconContext } from 'react-icons';
 
 export default function Games(props) {
   const title =
@@ -28,6 +30,9 @@ export default function Games(props) {
           &nbsp;min
         </p>
       </div>
+      <IconContext.Provider value={{size: '1.5rem'}}>
+      <span className='checkbox'><Checkbox /></span>
+      </IconContext.Provider>
     </div>
   );
 }

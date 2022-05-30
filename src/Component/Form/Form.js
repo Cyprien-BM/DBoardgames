@@ -33,11 +33,6 @@ export default function Form() {
       }
     }
     fetchData();
-    // if (research) {
-    //
-    // } else {
-    //   setGamesData();
-    // }
   }, [research]);
 
   console.log(gamesData);
