@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useEffect, useState} from 'react';
 import './Games.css';
 import { BsCheckCircle as Checkbox } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
@@ -8,10 +8,28 @@ export default function Games(props) {
     props.game.handle.charAt(0).toUpperCase() +
     props.game.handle.slice(1).split('-').join(' ');
 
+  const [inStore, setInStore] = useState(false)
+
+  useEffect(() => {
+    if (checkIfGameStored(props.game.id)) {
+      setInStore(true);
+    }
+  }, [])
+  
+
+  //------------------------------------------------ Check if game is already in storage when click on checkbox and act in consequences
+  const handleClickOnCheckbox = () => {
+    if (inStore) {
+      removeFromStorage(props.game.id);
+    } else {
+      addToStorage();
+    }
+  };
+
   const checkIfGameStored = (id) => {
     let userStorage = getLocalStorage();
-    return userStorage.find(game => game.id === id)
-  } 
+    return userStorage.find((game) => game.id === id);
+  };
 
   const getLocalStorage = () => {
     if (localStorage.getItem('dboardgameStorage')) {
@@ -23,9 +41,10 @@ export default function Games(props) {
 
   const addToStorage = () => {
     let dataToStore = getLocalStorage();
-    let gameToStore = createGameObject()
+    let gameToStore = createGameObject();
     dataToStore.push(gameToStore);
     saveLocalStorage(dataToStore);
+    setInStore(true);
   };
 
   const createGameObject = () => {
@@ -47,6 +66,7 @@ export default function Games(props) {
     let index = dataToStore.findIndex((game) => (game.id = id));
     dataToStore.splice(index, 1);
     saveLocalStorage(dataToStore);
+    setInStore(false)
   };
 
   const saveLocalStorage = (dataToStore) => {
@@ -54,7 +74,12 @@ export default function Games(props) {
   };
 
   return (
-    <div className={'game-card' + checkIfGameStored && 'stored'}>
+    <div
+      className={
+        'game-card' +
+        (inStore ? ' stored' : '')
+      }
+    >
       <img
         src={props.game.images.medium}
         alt='Photo du jeu'
@@ -76,8 +101,13 @@ export default function Games(props) {
         </p>
       </div>
       <IconContext.Provider value={{ size: '24px' }}>
-        <span className='checkbox'>
-          <Checkbox onClick={() => addToStorage()} />
+        <span
+          className={
+            'checkbox' +
+            (inStore ? ' full' : '')
+          }
+        >
+          <Checkbox onClick={() => handleClickOnCheckbox()} />
         </span>
       </IconContext.Provider>
     </div>
