@@ -6,7 +6,7 @@ export default function Button(props) {
 const navigate = useNavigate();
 
   return (
-    <button onClick={() => navigate(props.destination)}>
+    <button className='btn btn_header' onClick={() => navigate(props.destination)}>
       {props.txt}
     </button>
   )

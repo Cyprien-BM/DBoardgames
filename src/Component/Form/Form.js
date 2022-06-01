@@ -11,33 +11,59 @@ export default function Form() {
     if (event.target.classList.contains('search-input')) {
       setResearch(event.target.value);
     }
-    if (!event.target.value) {
+    if (!event.target.value && window.location.href.includes('home')) {
       setGamesData();
     }
   };
 
   useEffect(() => {
-    async function fetchData() {
-      await axios
-        .get(
-          `https://api.boardgameatlas.com/api/search?name=${research}&client_id=EG3knn8hUY`
-        )
-        .then((response) => {
-          setGamesData(response.data.games);
-        })
-        .catch((error) => console.log(error));
-
-      if (!research) {
-        setGamesData();
-      }
+    if (window.location.href.includes('collection')) {
+      setGamesData(getLocalStorage());
     }
-    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (window.location.href.includes('home')) {
+      async function fetchData() {
+        await axios
+          .get(
+            `https://api.boardgameatlas.com/api/search?name=${research}&client_id=EG3knn8hUY`
+          )
+          .then((response) => {
+            setGamesData(response.data.games);
+          })
+          .catch((error) => console.log(error));
+
+        if (!research) {
+          setGamesData();
+        }
+      }
+      fetchData();
+    }
   }, [research]);
 
-  console.log(gamesData);
+  const getLocalStorage = () => {
+    if (localStorage.getItem('dboardgameStorage')) {
+      return JSON.parse(localStorage.getItem('dboardgameStorage'));
+    } else {
+      return [];
+    }
+  };
+
+  const removeFromStorage = (id) => {
+    let dataToStore = getLocalStorage();
+    let index = dataToStore.findIndex((game) => game.id === id);
+    dataToStore.splice(index, 1);
+    saveLocalStorage(dataToStore);
+    // setInStore(false);
+  };
+
+  const saveLocalStorage = (dataToStore) => {
+    localStorage.setItem('dboardgameStorage', JSON.stringify(dataToStore));
+  };
 
   return (
-    <div className='form'>
+    <section className='form'>
       <div className='form__input'>
         <form action=''>
           <input
@@ -51,9 +77,29 @@ export default function Form() {
         </form>
       </div>
       <div className='games'>
-        {gamesData &&
-          gamesData.map((game) => <Games key={game.id} game={game} />)}
+        {window.location.href.includes('home')
+          ? research &&
+            gamesData &&
+            gamesData.map((game) => (
+              <Games
+                key={game.id}
+                game={game}
+                getLocalStorage={getLocalStorage}
+                saveLocalStorage={saveLocalStorage}
+                removeFromStorage={removeFromStorage}
+              />
+            ))
+          : gamesData &&
+            gamesData.map((game) => (
+              <Games
+                key={game.id}
+                game={game}
+                getLocalStorage={getLocalStorage}
+                saveLocalStorage={saveLocalStorage}
+                removeFromStorage={removeFromStorage}
+              />
+            ))}
       </div>
-    </div>
+    </section>
   );
 }

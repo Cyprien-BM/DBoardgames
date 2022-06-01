@@ -1,7 +1,7 @@
 .game-card {
   background-color: white;
   width: 360px;
-  height: 450px;
+  height: 470px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,4 +63,16 @@
 .checkbox:hover,
 .full {
   background: rgba(253, 92, 66, 1);
+}
+
+.game-played{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: .5rem;
+}
+
+#game-played-input{
+  width: 50px;
+  text-align: center;
 }

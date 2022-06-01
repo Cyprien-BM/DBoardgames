@@ -1,27 +1,28 @@
-button {
-  position: relative;
+.btn_header {
   color: #352927;
+  border: none;
+  outline: 2px solid rgba(253, 92, 66, 1);
+  position: relative;
   box-shadow: 3px 3px 5px rgba(128, 128, 128, 0.5);
   padding: 0.6rem 1rem;
   margin-left: 2rem;
   border-radius: 5px;
   border: none;
-  outline:  2px solid rgba(253, 92, 66, 1);
+  outline: 2px solid rgba(253, 92, 66, 1);
   font-weight: 600;
   font-size: 1rem;
 }
 
-button:hover {
+.btn_header:hover {
   background: transparent;
-  color: #671206;
   box-shadow: none;
   transition: ease-in-out all;
   cursor: pointer;
-  outline: none
+  outline: none;
 }
 
-button::before,
-button::after {
+.btn_header::before,
+.btn_header::after {
   content: '';
   position: absolute;
   top: 0;
@@ -31,15 +32,15 @@ button::after {
   background: rgba(253, 92, 66, 1);
 }
 
-button::after {
+.btn_header::after {
   right: inherit;
   top: inherit;
   left: 0;
   bottom: 0;
 }
 
-button:hover:before,
-button:hover:after {
+.btn_header:hover:before,
+.btn_header:hover:after {
   width: 100%;
   transition: 400ms ease-in-out all;
 }
