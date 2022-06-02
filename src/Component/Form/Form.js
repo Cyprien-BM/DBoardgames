@@ -20,12 +20,14 @@ export default function Form() {
     }
   };
 
-  console.log(research);
-
-  useEffect(() => {
+  const getDataForCollection = () => {
     if (window.location.href.includes('collection')) {
       setGamesData(getLocalStorage());
     }
+  };
+
+  useEffect(() => {
+    getDataForCollection();
   }, []);
 
   useEffect(() => {
@@ -48,6 +50,7 @@ export default function Form() {
     }
   }, [research]);
 
+  //------------------------------------------------ Sorting
   useEffect(() => {
     if (gamesData) {
       const newGameArr = [...gamesData];
@@ -68,8 +71,6 @@ export default function Form() {
     }
   }, [sorting]);
 
-  console.log(gamesData);
-
   const getLocalStorage = () => {
     if (localStorage.getItem('dboardgameStorage')) {
       return JSON.parse(localStorage.getItem('dboardgameStorage'));
@@ -83,7 +84,7 @@ export default function Form() {
     let index = dataToStore.findIndex((game) => game.id === id);
     dataToStore.splice(index, 1);
     saveLocalStorage(dataToStore);
-    // setInStore(false);
+    getDataForCollection();
   };
 
   const saveLocalStorage = (dataToStore) => {
@@ -94,14 +95,16 @@ export default function Form() {
     <section className='form'>
       <div className='form__container'>
         <form action='' className='form__fields'>
-          <input
-            type='text'
-            className='search-input'
-            placeholder="Entrez le nom d'un jeu"
-            onInput={dataBinding}
-            onFocus={(e) => (e.target.placeholder = '')}
-            onBlur={(e) => (e.target.placeholder = "Entrez le nom d'un jeu")}
-          />
+          {window.location.href.includes('home') && (
+            <input
+              type='text'
+              className='search-input'
+              placeholder="Entrez le nom d'un jeu"
+              onInput={dataBinding}
+              onFocus={(e) => (e.target.placeholder = '')}
+              onBlur={(e) => (e.target.placeholder = "Entrez le nom d'un jeu")}
+            />
+          )}
           <div className='select__container'>
             <label className='select__label' htmlFor='sorting'>
               {' '}

@@ -22,3 +22,16 @@ header {
   color:#671206;
   font-size: 3rem;
 }
+
+@media all and (max-width: 700px) {
+  header {
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 140px;
+  }
+
+  .header-button {
+    display: flex;
+    gap: 2rem;
+  }
+}
