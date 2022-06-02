@@ -7,13 +7,19 @@
   justify-content: center;
 }
 
-.form__input {
+.form__container {
   width: 100%;
+}
+
+.form__fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .search-input {
   outline: none;
-  margin: 2rem 0;
+  margin-top: 2rem;
   width: 40%;
   height: 2rem;
   border-radius: 1rem;
@@ -28,6 +34,15 @@
 .form__input,
 .search-input {
   text-align: center;
+}
+
+.form__select {
+  margin: 1.5rem 0;
+  height: 1.5rem;
+}
+
+.select__label {
+  margin-right: 1rem;
 }
 
 .games {

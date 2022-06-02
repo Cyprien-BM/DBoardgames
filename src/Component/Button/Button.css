@@ -1,7 +1,5 @@
 .btn_header {
   color: #352927;
-  border: none;
-  outline: 2px solid rgba(253, 92, 66, 1);
   position: relative;
   box-shadow: 3px 3px 5px rgba(128, 128, 128, 0.5);
   padding: 0.6rem 1rem;

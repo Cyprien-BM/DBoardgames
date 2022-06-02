@@ -12,6 +12,11 @@ export default function Games(props) {
 
   //------------------------------------------------ Check if game is in storage
   useEffect(() => {
+    const checkIfGameStored = (id) => {
+      let userStorage = props.getLocalStorage();
+      return userStorage.find((game) => game.id === id);
+    };
+
     if (checkIfGameStored(props.game.id)) {
       setInStore(true);
     }
@@ -25,11 +30,6 @@ export default function Games(props) {
     } else {
       addToStorage();
     }
-  };
-
-  const checkIfGameStored = (id) => {
-    let userStorage = props.getLocalStorage();
-    return userStorage.find((game) => game.id === id);
   };
 
   const addToStorage = () => {
