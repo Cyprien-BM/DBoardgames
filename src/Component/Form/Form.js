@@ -8,26 +8,10 @@ export default function Form() {
   const [gamesData, setGamesData] = useState();
   const [sorting, setSorting] = useState();
 
-  const dataBinding = (event) => {
-    if (event.target.classList.contains('search-input')) {
-      setResearch(event.target.value);
-    }
-    if (!event.target.value && window.location.href.includes('home')) {
-      setGamesData();
-    }
-    if (event.target.classList.contains('form__select')) {
-      setSorting(event.target.value);
-    }
-  };
-
-  const getDataForCollection = () => {
-    if (window.location.href.includes('collection')) {
-      setGamesData(getLocalStorage());
-    }
-  };
-
   useEffect(() => {
-    getDataForCollection();
+    if (window.location.href.includes('collection')) {
+      getDataForCollection();
+    }
   }, []);
 
   useEffect(() => {
@@ -67,9 +51,29 @@ export default function Form() {
           newGameArr.sort((a, b) => b.max_playtime - a.max_playtime);
           setGamesData(newGameArr);
           break;
+        default:
+          return;
       }
     }
   }, [sorting]);
+
+  const dataBinding = (event) => {
+    if (event.target.classList.contains('search-input')) {
+      setResearch(event.target.value);
+    }
+    if (!event.target.value && window.location.href.includes('home')) {
+      setGamesData();
+    }
+    if (event.target.classList.contains('form__select')) {
+      setSorting(event.target.value);
+    }
+  };
+
+  const getDataForCollection = () => {
+    if (window.location.href.includes('collection')) {
+      setGamesData(getLocalStorage());
+    }
+  };
 
   const getLocalStorage = () => {
     if (localStorage.getItem('dboardgameStorage')) {
@@ -94,9 +98,13 @@ export default function Form() {
   return (
     <section className='form'>
       <div className='form__container'>
+        <label className='select__label' htmlFor='searching' hidden>
+          Chercher un jeu
+        </label>
         <form action='' className='form__fields'>
           {window.location.href.includes('home') && (
             <input
+              id='searching'
               type='text'
               className='search-input'
               placeholder="Entrez le nom d'un jeu"
@@ -125,9 +133,9 @@ export default function Form() {
         </form>
       </div>
       <div className='games'>
-        {window.location.href.includes('home')
-          ? research &&
-            gamesData &&
+        {(window.location.href.includes('home') && research) ||
+        window.location.href.includes('collection')
+          ? gamesData &&
             gamesData.map((game) => (
               <Games
                 key={game.id}
@@ -137,16 +145,7 @@ export default function Form() {
                 removeFromStorage={removeFromStorage}
               />
             ))
-          : gamesData &&
-            gamesData.map((game) => (
-              <Games
-                key={game.id}
-                game={game}
-                getLocalStorage={getLocalStorage}
-                saveLocalStorage={saveLocalStorage}
-                removeFromStorage={removeFromStorage}
-              />
-            ))}
+          : ''}
       </div>
     </section>
   );
