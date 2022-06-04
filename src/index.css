@@ -9,6 +9,7 @@
 body {
   background: linear-gradient(0deg, rgba(66,92,253,1) 0%, rgba(66,227,253,1) 100%) fixed; 
   font-family: 'Plus Jakarta Sans', sans-serif;
+  min-width: 375px;
 }
 
 html {
