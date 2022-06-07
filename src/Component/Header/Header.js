@@ -9,7 +9,7 @@ export default function Header() {
         <h1 className='title'><span className='title-db'>DB</span>oardgames</h1>
       </div>
       <div className='header-button'>
-        <Button txt={'Acceuil'} destination={'/'} />
+        <Button txt={'Accueil'} destination={'/'} />
         <Button txt={'Ma collection'} destination={'/collection'} />
       </div>
     </header> 
